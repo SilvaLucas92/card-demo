@@ -14,6 +14,7 @@ import BillPayPage from "./pages/Billpaypage";
 import LoginPage from "./pages/Loginpage";
 import PrivateRoute from "./components/PrivateRoute";
 import CardPage from "./pages/Cardpage";
+import HomePage from "./pages/Homepage";
 
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -38,7 +39,7 @@ const App = () => {
             path="/"
             element={
               <PrivateRoute
-                element={<div>Home</div>}
+                element={<HomePage />}
                 isAuthenticated={isAuthenticated}
               />
             }

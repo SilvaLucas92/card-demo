@@ -47,8 +47,12 @@ const BillPayForm = ({ onSubmit }) => {
             />
           </div>
 
-          <div>
-            <button type="submit" disabled={isSubmitting}>
+          <div style={{ display: "flex", justifyContent: "flex-end" }}>
+            <button
+              type="submit"
+              disabled={isSubmitting}
+              className="submit-button"
+            >
               Submit
             </button>
           </div>
