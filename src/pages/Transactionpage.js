@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchTransactions } from "../redux/slices/transactionSlice";
+import "../App.css";
 import TransactionForm from "../components/Transactionform";
 
 const TransactionPage = () => {
@@ -22,7 +23,7 @@ const TransactionPage = () => {
   };
 
   return (
-    <div>
+    <div className="container">
       <h1>Transactions</h1>
       <TransactionForm onSubmit={handleSubmit} />
       {status === "loading" && <p>Loading...</p>}

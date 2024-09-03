@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCards } from "../redux/slices/cardSlice";
 import CardForm from "../components/Cardform";
+import "../App.css";
 
 const CardPage = () => {
   const dispatch = useDispatch();
@@ -22,7 +23,7 @@ const CardPage = () => {
   };
 
   return (
-    <div>
+    <div className="container">
       <h1>Cards</h1>
       <CardForm onSubmit={handleSubmit} />
       {status === "loading" && <p>Loading...</p>}

@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchBillPays } from "../redux/slices/billPaySlice";
 import BillPayForm from "../components/Billpayform";
+import "../App.css";
 
 const BillPayPage = () => {
   const dispatch = useDispatch();
@@ -22,7 +23,7 @@ const BillPayPage = () => {
   };
 
   return (
-    <div>
+    <div className="container">
       <h1>Bill Pay</h1>
       <BillPayForm onSubmit={handleSubmit} />
       {status === "loading" && <p>Loading...</p>}

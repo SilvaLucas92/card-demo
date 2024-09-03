@@ -36,3 +36,30 @@
     transform: rotate(360deg);
   }
 }
+
+.form-field {
+  margin-bottom: 1rem;
+}
+
+.form-field label {
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.form-field input {
+  width: 100%;
+  padding: 0.5rem;
+  box-sizing: border-box;
+}
+
+.form-field .error-message {
+  color: red;
+  margin-top: 0.5rem;
+}
+
+.container {
+  max-width: 800px; /* Ajusta el ancho según tus necesidades */
+  margin: 10px auto; /* Centra el contenedor horizontalmente */
+  padding: 1rem; /* Espaciado interno opcional */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Opcional: agrega una sombra para mejor visualización */
+}

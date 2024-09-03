@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCustomers } from "../redux/slices/customerSlice";
 import CustomerForm from "../components/Customerform";
+import "../App.css";
 
 const CustomerPage = () => {
   const dispatch = useDispatch();
@@ -22,7 +23,7 @@ const CustomerPage = () => {
   };
 
   return (
-    <div>
+    <div className="container">
       <h1>Customers</h1>
       <CustomerForm onSubmit={handleSubmit} />
       {status === "loading" && <p>Loading...</p>}
