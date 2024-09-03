@@ -5,6 +5,7 @@ import CustomerPage from "./pages/Customerpage";
 import TransactionPage from "./pages/Transactionpage";
 import Navbar from "./components/Navbar";
 import BillPayPage from "./pages/Billpaypage";
+import "./App.css";
 
 const App = () => {
   return (
@@ -15,7 +16,17 @@ const App = () => {
         <Route path="/cards" element={<CardPage />} />
         <Route path="/customers" element={<CustomerPage />} />
         <Route path="/transactions" element={<TransactionPage />} />
-        <Route path="/" element={<div>Home</div>} />
+        <Route
+          path="/"
+          element={
+            <div
+              className="container"
+              style={{ padding: "20px", textAlign: "center" }}
+            >
+              <h1 style={{ fontSize: "2rem", color: "#333" }}>Home</h1>
+            </div>
+          }
+        />
       </Routes>
     </Router>
   );
