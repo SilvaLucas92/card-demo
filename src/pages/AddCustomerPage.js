@@ -1,59 +1,54 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchCustomers } from "../redux/slices/customerSlice";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import CustomerForm from "../components/Customerform";
+import useCustomerStore from "../store/useCustomerStore";
 import "../App.css";
 
 const AddCustomerPage = () => {
-  const dispatch = useDispatch();
-  const customers = useSelector((state) => state.customer.customers);
-  const status = useSelector((state) => state.customer.status);
-  const error = useSelector((state) => state.customer.error);
+  const { addCustomer } = useCustomerStore();
   const [formStatus, setFormStatus] = useState("idle");
-
   const navigate = useNavigate();
 
   const handleBackClick = () => {
-    navigate(-1);
+    navigate("/customers");
   };
 
-  // useEffect(() => {
-  //   if (status === "idle") {
-  //     dispatch(fetchCustomers());
-  //   }
-  // }, [status, dispatch]);
+  const handleViewCustomersClick = () => {
+    navigate("/view-customers");
+  };
 
   const handleSubmit = (values, { setSubmitting }) => {
     setFormStatus("loading");
     setTimeout(() => {
-      console.log("Form values:", values);
+      addCustomer(values);
       setFormStatus("success");
       setSubmitting(false);
-    }, 2000); // Mocking a 2-second submit delay
+    }, 2000);
   };
+
+  useEffect(() => {
+    if (formStatus === "success") {
+      const timer = setTimeout(() => {
+        navigate("/view-customers");
+      }, 1000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [formStatus, navigate]);
 
   return (
     <div className="container">
       <button onClick={handleBackClick} className="back-button">
         Back
       </button>
-      <h1>Customers</h1>
+      <button onClick={handleViewCustomersClick} className="back-button">
+        View Customers
+      </button>
+      <h1>Add Customer</h1>
 
       <CustomerForm onSubmit={handleSubmit} />
       {formStatus === "loading" && <p>Sending...</p>}
       {formStatus === "success" && <p>Form submitted successfully!</p>}
-      {/* {status === "loading" && <p>Loading...</p>}
-      {status === "succeeded" && (
-        <ul>
-          {customers.map((customer) => (
-            <li key={customer.id}>
-              {customer.firstName} {customer.lastName}
-            </li>
-          ))}
-        </ul>
-      )}
-      {status === "failed" && <p>{error}</p>} */}
     </div>
   );
 };

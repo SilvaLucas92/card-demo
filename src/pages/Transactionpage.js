@@ -21,7 +21,7 @@ const TransactionPage = () => {
   };
 
   const handleAddTransaction = () => {
-    navigate("/add-transaction");
+    navigate("/billpay");
   };
 
   return (

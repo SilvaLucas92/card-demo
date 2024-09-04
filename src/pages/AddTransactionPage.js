@@ -15,7 +15,11 @@ const AddTransactionPage = () => {
   const navigate = useNavigate();
 
   const handleBackClick = () => {
-    navigate(-1);
+    navigate("/transactions");
+  };
+
+  const handleViewTransactionsClick = () => {
+    navigate("/view-transactions");
   };
 
   // useEffect(() => {
@@ -37,6 +41,10 @@ const AddTransactionPage = () => {
       <button onClick={handleBackClick} className="back-button">
         Back
       </button>
+      <button onClick={handleViewTransactionsClick} className="back-button">
+        View Transactions
+      </button>
+
       <h1>Transactions</h1>
       <TransactionForm onSubmit={handleSubmit} />
       {formStatus === "loading" && <p>Sending...</p>}

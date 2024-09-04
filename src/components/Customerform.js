@@ -49,7 +49,7 @@ const CustomerForm = ({ onSubmit }) => {
         phoneNumber2: Yup.string().max(15, "Must be 15 characters"),
         ssn: Yup.string()
           .required("Required")
-          .matches(/^[0-9]{9}$/, "Must be 9 digits"),
+          .matches(/^\d{3}-\d{2}-\d{4}$/, "Must be 9 digits"),
         govtIssuedId: Yup.string()
           .required("Required")
           .max(20, "Must be 20 characters"),

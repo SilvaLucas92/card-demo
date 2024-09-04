@@ -7,8 +7,8 @@ const useTransactionsStore = create((set) => ({
     //   amount: "$10000",
     //   description: "Payment for services",
     // },
-    { accountId: "4850", amount: "$25423", description: "Refund" },
-    { accountId: "7892", amount: "$32237", description: "Purchase of goods" },
+    { accountId: "4850", amount: "25423", description: "Refund" },
+    { accountId: "7892", amount: "32237", description: "Purchase of goods" },
   ],
   addTransaction: (transaction) =>
     set((state) => ({
