@@ -1,21 +1,26 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchBillPays } from "../redux/slices/billPaySlice";
-import BillPayForm from "../components/Billpayform";
+import { fetchCustomers } from "../redux/slices/customerSlice";
+import { useNavigate } from "react-router-dom";
+import CustomerForm from "../components/Customerform";
 import "../App.css";
-import useTransactionsStore from "../store/useTransactionStore";
 
-const BillPayPage = () => {
+const AddCustomerPage = () => {
   const dispatch = useDispatch();
-  const billPays = useSelector((state) => state.billPay.billPays);
-  const status = useSelector((state) => state.billPay.status);
-  const error = useSelector((state) => state.billPay.error);
+  const customers = useSelector((state) => state.customer.customers);
+  const status = useSelector((state) => state.customer.status);
+  const error = useSelector((state) => state.customer.error);
   const [formStatus, setFormStatus] = useState("idle");
-  const addTransaction = useTransactionsStore((state) => state.addTransaction);
+
+  const navigate = useNavigate();
+
+  const handleBackClick = () => {
+    navigate(-1);
+  };
 
   // useEffect(() => {
   //   if (status === "idle") {
-  //     dispatch(fetchBillPays());
+  //     dispatch(fetchCustomers());
   //   }
   // }, [status, dispatch]);
 
@@ -23,7 +28,6 @@ const BillPayPage = () => {
     setFormStatus("loading");
     setTimeout(() => {
       console.log("Form values:", values);
-      addTransaction(values);
       setFormStatus("success");
       setSubmitting(false);
     }, 2000); // Mocking a 2-second submit delay
@@ -31,16 +35,20 @@ const BillPayPage = () => {
 
   return (
     <div className="container">
-      <h1>Bill Pay</h1>
-      <BillPayForm onSubmit={handleSubmit} />
+      <button onClick={handleBackClick} className="back-button">
+        Back
+      </button>
+      <h1>Customers</h1>
+
+      <CustomerForm onSubmit={handleSubmit} />
       {formStatus === "loading" && <p>Sending...</p>}
       {formStatus === "success" && <p>Form submitted successfully!</p>}
       {/* {status === "loading" && <p>Loading...</p>}
       {status === "succeeded" && (
         <ul>
-          {billPays.map((billPay) => (
-            <li key={billPay.id}>
-              {billPay.description} - ${billPay.amount}
+          {customers.map((customer) => (
+            <li key={customer.id}>
+              {customer.firstName} {customer.lastName}
             </li>
           ))}
         </ul>
@@ -50,4 +58,4 @@ const BillPayPage = () => {
   );
 };
 
-export default BillPayPage;
+export default AddCustomerPage;

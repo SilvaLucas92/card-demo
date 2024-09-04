@@ -1,21 +1,26 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchBillPays } from "../redux/slices/billPaySlice";
-import BillPayForm from "../components/Billpayform";
+import { fetchTransactions } from "../redux/slices/transactionSlice";
 import "../App.css";
-import useTransactionsStore from "../store/useTransactionStore";
+import TransactionForm from "../components/Transactionform";
+import { useNavigate } from "react-router-dom";
 
-const BillPayPage = () => {
+const AddTransactionPage = () => {
   const dispatch = useDispatch();
-  const billPays = useSelector((state) => state.billPay.billPays);
-  const status = useSelector((state) => state.billPay.status);
-  const error = useSelector((state) => state.billPay.error);
+  const transactions = useSelector((state) => state.transaction.transactions);
+  const status = useSelector((state) => state.transaction.status);
+  const error = useSelector((state) => state.transaction.error);
   const [formStatus, setFormStatus] = useState("idle");
-  const addTransaction = useTransactionsStore((state) => state.addTransaction);
+
+  const navigate = useNavigate();
+
+  const handleBackClick = () => {
+    navigate(-1);
+  };
 
   // useEffect(() => {
   //   if (status === "idle") {
-  //     dispatch(fetchBillPays());
+  //     dispatch(fetchTransactions());
   //   }
   // }, [status, dispatch]);
 
@@ -23,24 +28,25 @@ const BillPayPage = () => {
     setFormStatus("loading");
     setTimeout(() => {
       console.log("Form values:", values);
-      addTransaction(values);
       setFormStatus("success");
       setSubmitting(false);
     }, 2000); // Mocking a 2-second submit delay
   };
-
   return (
     <div className="container">
-      <h1>Bill Pay</h1>
-      <BillPayForm onSubmit={handleSubmit} />
+      <button onClick={handleBackClick} className="back-button">
+        Back
+      </button>
+      <h1>Transactions</h1>
+      <TransactionForm onSubmit={handleSubmit} />
       {formStatus === "loading" && <p>Sending...</p>}
       {formStatus === "success" && <p>Form submitted successfully!</p>}
       {/* {status === "loading" && <p>Loading...</p>}
       {status === "succeeded" && (
         <ul>
-          {billPays.map((billPay) => (
-            <li key={billPay.id}>
-              {billPay.description} - ${billPay.amount}
+          {transactions.map((transaction) => (
+            <li key={transaction.id}>
+              {transaction.description} - ${transaction.amount}
             </li>
           ))}
         </ul>
@@ -50,4 +56,4 @@ const BillPayPage = () => {
   );
 };
 
-export default BillPayPage;
+export default AddTransactionPage;

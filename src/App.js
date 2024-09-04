@@ -1,4 +1,3 @@
-// src/App.js
 import React, { useState } from "react";
 import {
   BrowserRouter as Router,
@@ -15,6 +14,13 @@ import LoginPage from "./pages/Loginpage";
 import PrivateRoute from "./components/PrivateRoute";
 import CardPage from "./pages/Cardpage";
 import HomePage from "./pages/Homepage";
+
+import AddCustomerPage from "./pages/AddCustomerPage";
+import ViewCustomersPage from "./pages/ViewCustomerpage";
+import ViewCardsPage from "./pages/ViewCardsPage";
+import AddCardPage from "./pages/AddCardPage";
+import AddTransactionPage from "./pages/AddTransactionPage";
+import ViewTransactionsPage from "./pages/ViewTransactionsPage";
 
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -76,6 +82,60 @@ const App = () => {
             element={
               <PrivateRoute
                 element={<TransactionPage />}
+                isAuthenticated={isAuthenticated}
+              />
+            }
+          />
+          <Route
+            path="/view-customers"
+            element={
+              <PrivateRoute
+                element={<ViewCustomersPage />}
+                isAuthenticated={isAuthenticated}
+              />
+            }
+          />
+          <Route
+            path="/add-customer"
+            element={
+              <PrivateRoute
+                element={<AddCustomerPage />}
+                isAuthenticated={isAuthenticated}
+              />
+            }
+          />
+          <Route
+            path="/view-cards"
+            element={
+              <PrivateRoute
+                element={<ViewCardsPage />}
+                isAuthenticated={isAuthenticated}
+              />
+            }
+          />
+          <Route
+            path="/add-card"
+            element={
+              <PrivateRoute
+                element={<AddCardPage />}
+                isAuthenticated={isAuthenticated}
+              />
+            }
+          />
+          <Route
+            path="/view-transactions"
+            element={
+              <PrivateRoute
+                element={<ViewTransactionsPage />}
+                isAuthenticated={isAuthenticated}
+              />
+            }
+          />
+          <Route
+            path="/add-transaction"
+            element={
+              <PrivateRoute
+                element={<AddTransactionPage />}
                 isAuthenticated={isAuthenticated}
               />
             }

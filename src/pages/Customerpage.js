@@ -1,48 +1,31 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchCustomers } from "../redux/slices/customerSlice";
-import CustomerForm from "../components/Customerform";
+import React from "react";
+import { useNavigate } from "react-router-dom";
 import "../App.css";
 
 const CustomerPage = () => {
-  const dispatch = useDispatch();
-  const customers = useSelector((state) => state.customer.customers);
-  const status = useSelector((state) => state.customer.status);
-  const error = useSelector((state) => state.customer.error);
-  const [formStatus, setFormStatus] = useState("idle");
+  const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   if (status === "idle") {
-  //     dispatch(fetchCustomers());
-  //   }
-  // }, [status, dispatch]);
+  const handleViewCustomers = () => {
+    navigate("/view-customers");
+  };
 
-  const handleSubmit = (values, { setSubmitting }) => {
-    setFormStatus("loading");
-    setTimeout(() => {
-      console.log("Form values:", values);
-      setFormStatus("success");
-      setSubmitting(false);
-    }, 2000); // Mocking a 2-second submit delay
+  const handleAddCustomer = () => {
+    navigate("/add-customer");
   };
 
   return (
     <div className="container">
-      <h1>Customers</h1>
-      <CustomerForm onSubmit={handleSubmit} />
-      {formStatus === "loading" && <p>Sending...</p>}
-      {formStatus === "success" && <p>Form submitted successfully!</p>}
-      {/* {status === "loading" && <p>Loading...</p>}
-      {status === "succeeded" && (
-        <ul>
-          {customers.map((customer) => (
-            <li key={customer.id}>
-              {customer.firstName} {customer.lastName}
-            </li>
-          ))}
-        </ul>
-      )}
-      {status === "failed" && <p>{error}</p>} */}
+      <h1>Customer Management</h1>
+      <div className="card-container">
+        <div className="card" onClick={handleViewCustomers}>
+          <h2>View Customers</h2>
+          <p>See all customers in the system.</p>
+        </div>
+        <div className="card" onClick={handleAddCustomer}>
+          <h2>Add Customer</h2>
+          <p>Add a new customer to the system.</p>
+        </div>
+      </div>
     </div>
   );
 };
