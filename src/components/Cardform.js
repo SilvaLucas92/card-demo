@@ -3,7 +3,15 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import "../App.css";
 
+const cardTypes = ["Visa", "Mastercard", "American Express", "Discover"];
+
 const CardForm = ({ onSubmit }) => {
+  const formatCardNumber = (value) => {
+    const cleaned = value.replace(/\D/g, "").slice(0, 16);
+
+    return cleaned.replace(/(.{4})/g, "$1 ").trim();
+  };
+
   return (
     <Formik
       initialValues={{
@@ -15,18 +23,27 @@ const CardForm = ({ onSubmit }) => {
       validationSchema={Yup.object({
         cardNumber: Yup.string()
           .required("Required")
-          .matches(/^[0-9]{16}$/, "Card number must be 16 digits"),
+          .matches(
+            /^\d{4} \d{4} \d{4} \d{4}$/,
+            "Card number must be in the format XXXX XXXX XXXX XXXX"
+          ),
         cardHolderName: Yup.string().required("Required"),
         expirationDate: Yup.date().required("Required"),
         cardType: Yup.string().required("Required"),
       })}
       onSubmit={onSubmit}
     >
-      {({ isSubmitting }) => (
+      {({ isSubmitting, values, setFieldValue }) => (
         <Form>
           <div className="form-field">
             <label htmlFor="cardNumber">Card Number</label>
-            <Field name="cardNumber" type="text" />
+            <Field
+              name="cardNumber"
+              type="text"
+              value={formatCardNumber(values.cardNumber)}
+              onChange={(e) => setFieldValue("cardNumber", e.target.value)}
+              maxLength="19"
+            />
             <ErrorMessage
               name="cardNumber"
               component="div"
@@ -56,7 +73,12 @@ const CardForm = ({ onSubmit }) => {
 
           <div className="form-field">
             <label htmlFor="cardType">Card Type</label>
-            <Field name="cardType" type="text" />
+            <Field as="select" name="cardType">
+              <option value="" label="Select card type" />
+              {cardTypes.map((type) => (
+                <option key={type} value={type} label={type} />
+              ))}
+            </Field>
             <ErrorMessage
               name="cardType"
               component="div"

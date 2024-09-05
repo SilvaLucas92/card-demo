@@ -1,45 +1,30 @@
 import React from "react";
-
+import { useNavigate } from "react-router-dom";
+import useCustomerStore from "../store/useCustomerStore";
 import "./Table.css";
 
 const ViewCustomersPage = () => {
-  const customers = [
-    {
-      customerId: "C001",
-      firstName: "John",
-      lastName: "Doe",
-      address: "123 Main St",
-      stateCode: "CA",
-      countryCode: "US",
-      zipCode: "90001",
-      phoneNumber: "555-1234",
-      ssn: "123-45-6789",
-      governmentId: "A1234567",
-      dateOfBirth: "1980-01-01",
-      eftAccountId: "EFT001",
-      primaryCardIndicator: "Yes",
-      ficoCreditScore: "750",
-    },
-    {
-      customerId: "C002",
-      firstName: "Jane",
-      lastName: "Smith",
-      address: "456 Elm St",
-      stateCode: "NY",
-      countryCode: "US",
-      zipCode: "10001",
-      phoneNumber: "555-5678",
-      ssn: "987-65-4321",
-      governmentId: "B7654321",
-      dateOfBirth: "1990-05-15",
-      eftAccountId: "EFT002",
-      primaryCardIndicator: "No",
-      ficoCreditScore: "680",
-    },
-  ];
+  const { customers } = useCustomerStore();
+  const navigate = useNavigate();
+
+  const handleBackClick = () => {
+    navigate("/customers");
+  };
+
+  const handleAddCustomerClick = () => {
+    navigate("/add-customer");
+  };
 
   return (
     <div className="table-container">
+      <div className="button-container">
+        <button onClick={handleBackClick} className="back-button">
+          Back
+        </button>
+        <button onClick={handleAddCustomerClick} className="back-button">
+          Add Customer
+        </button>
+      </div>
       <h2>Customer Information</h2>
       <table className="table">
         <thead>
@@ -47,24 +32,36 @@ const ViewCustomersPage = () => {
             <th>Customer Id</th>
             <th>First Name</th>
             <th>Last Name</th>
-            <th>Address</th>
+            <th>Address Line 1</th>
             <th>State Code</th>
             <th>Country Code</th>
             <th>Zip Code</th>
-            <th>Phone Number</th>
+            <th>Phone Number 1</th>
+            <th>SSN</th>
+            <th>Government Issued ID</th>
+            <th>Date of Birth</th>
+            <th>EFT Account ID</th>
+            <th>Primary Card Indicator</th>
+            <th>FICO Credit Score</th>
           </tr>
         </thead>
         <tbody>
-          {customers.map((customer, index) => (
-            <tr key={index}>
+          {customers.map((customer) => (
+            <tr key={customer.customerId}>
               <td>{customer.customerId}</td>
               <td>{customer.firstName}</td>
               <td>{customer.lastName}</td>
-              <td>{customer.address}</td>
+              <td>{customer.addressLine1}</td>
               <td>{customer.stateCode}</td>
               <td>{customer.countryCode}</td>
               <td>{customer.zipCode}</td>
-              <td>{customer.phoneNumber}</td>
+              <td>{customer.phoneNumber1}</td>
+              <td>{customer.ssn}</td>
+              <td>{customer.govtIssuedId}</td>
+              <td>{customer.dob}</td>
+              <td>{customer.eftAccountId}</td>
+              <td>{customer.primaryCardIndicator}</td>
+              <td>{customer.ficoCreditScore}</td>
             </tr>
           ))}
         </tbody>

@@ -1,37 +1,66 @@
 
 .table-container {
-    padding: 20px;
-    max-width: 800px;
-    margin: 0 auto;
-    text-align: center;
-  }
+  padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.table th,
+.table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.table th {
+  background-color: #f4f4f4;
+  font-weight: bold;
+}
+
+.table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.table tr:hover {
+  background-color: #f1f1f1;
+}
+
+.table td {
+  text-align: center;
   
+}
+
+/* Responsive styles */
+@media screen and (max-width: 768px) {
   .table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
+    display: none; /* Hide table on small screens */
   }
-  
-  .table th,
-  .table td {
+
+  .card-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .card {
     border: 1px solid #ddd;
-    padding: 8px;
+    border-radius: 5px;
+    padding: 15px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   }
-  
-  .table th {
-    background-color: #f4f4f4;
-    font-weight: bold;
+
+  .card h3 {
+    margin-top: 0;
   }
-  
-  .table tr:nth-child(even) {
-    background-color: #f9f9f9;
+
+  .card-item {
+    margin-bottom: 10px;
   }
-  
-  .table tr:hover {
-    background-color: #f1f1f1;
-  }
-  
-  .table td {
-    text-align: center;
-  }
-  
+}

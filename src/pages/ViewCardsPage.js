@@ -1,24 +1,30 @@
 import React from "react";
+import useCardsStore from "../store/useCardStore";
+import { useNavigate } from "react-router-dom";
 import "./Table.css";
 
 const ViewCardsPage = () => {
-  const cards = [
-    {
-      number: "1234 5678 9012 3456",
-      holderName: "John Doe",
-      expirationDate: "12/25",
-      type: "Visa",
-    },
-    {
-      number: "9876 5432 1098 7654",
-      holderName: "Jane Smith",
-      expirationDate: "08/24",
-      type: "Mastercard",
-    },
-  ];
+  const { cards } = useCardsStore();
+  const navigate = useNavigate();
+
+  const handleBackClick = () => {
+    navigate("/cards");
+  };
+
+  const handleAddCardClick = () => {
+    navigate("/add-card");
+  };
 
   return (
     <div className="table-container">
+      <div className="button-container">
+        <button onClick={handleBackClick} className="back-button">
+          Back
+        </button>
+        <button onClick={handleAddCardClick} className="back-button">
+          Add Card
+        </button>
+      </div>
       <h2>Card Information</h2>
       <table className="table">
         <thead>
@@ -32,10 +38,10 @@ const ViewCardsPage = () => {
         <tbody>
           {cards.map((card, index) => (
             <tr key={index}>
-              <td>{card.number}</td>
-              <td>{card.holderName}</td>
+              <td>{card.cardNumber}</td>
+              <td>{card.cardHolderName}</td>
               <td>{card.expirationDate}</td>
-              <td>{card.type}</td>
+              <td>{card.cardType}</td>
             </tr>
           ))}
         </tbody>
